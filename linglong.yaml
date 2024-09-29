@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.timeslicer
+  name: timeslicer
+  version: 0.0.0.1
+  kind: app
+  description: |
+    Graphical tool for creating Timeslice images from timelapses
+
+command:
+  - /opt/apps/io.github.timeslicer/files/bin/TimeSlicer
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/timeslicer.git
+    version: master
+    commit: 2d9124e5bd3ca7d279d1280acae4ba5e5214b16e
+
+build: |
+  cd /project/linglong/sources/timeslicer.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
